@@ -21,7 +21,7 @@ class WidgetTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Model provider = Provider.of(context);
+    Model provider = Provider.of<Model>(context,listen: true);
     return Center(
       child: Column(
         children: [
