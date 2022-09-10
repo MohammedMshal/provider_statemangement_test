@@ -21,17 +21,23 @@ class WidgetTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Model provider = Provider.of<Model>(context,listen: true);
+    //Model provider = Provider.of<Model>(context,listen: true);
     return Center(
       child: Column(
         children: [
-          Text(provider.name),
+          //listen = false     listen ? rebuild ui ? = true : false
+          //Text(context.read<Model>().name),
+          //lister = true
+          Text(context.watch()<Model>().name),
           const SizedBox(height: 20),
           MaterialButton(
               color: Colors.blue,
               child: const Text('Change'),
               onPressed: () {
-                provider.changeName();
+                //listen = false
+                //context.read<Model>().changeName();
+                //listen = true
+                context.watch()<Model>().changeName();
               }),
         ],
       ),
