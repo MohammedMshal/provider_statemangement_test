@@ -9,48 +9,32 @@ class HomePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (BuildContext context) => Model(),
       child: Scaffold(
-          appBar: AppBar(),
-          body: Center(
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    Selector<Model, String>(
-                      selector: (context, provider) => provider.name,
-                      builder: (context, value, child) {
-                        return Text(value);
-                      },
-                    ),
-                    Selector<Model, String>(
-                      selector: (context, provider) => provider.name2,
-                      builder: (context, value, child) {
-                        return Text(value);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    Consumer<Model>(
-                      builder: (context, provider, child) {
-                        return MaterialButton(
-                            color: Colors.blue,
-                            child: const Text('Change'),
-                            onPressed: () {
-                              provider.changeName();
-                            });
-                      },
-                    ),
-                    Consumer<Model>(
-                      builder: (context, provider, child) {
-                        return MaterialButton(
-                            color: Colors.blue,
-                            child: const Text('Change Two'),
-                            onPressed: () {
-                              provider.changeNameTow();
-                            });
-                      },
-                    ),
-                  ],
-                )),
-          )),
+        appBar: AppBar(),
+        body: const WidgetTest(),
+      ),
+    );
+  }
+}
+
+class WidgetTest extends StatelessWidget {
+  const WidgetTest({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Model provider = Provider.of(context);
+    return Center(
+      child: Column(
+        children: [
+          Text(provider.name),
+          const SizedBox(height: 20),
+          MaterialButton(
+              color: Colors.blue,
+              child: const Text('Change'),
+              onPressed: () {
+                provider.changeName();
+              }),
+        ],
+      ),
     );
   }
 }
@@ -66,12 +50,6 @@ class Model with ChangeNotifier {
   void changeName() {
     name = 'state changed';
     print('build Name one');
-    notifyListeners();
-  }
-
-  void changeNameTow() {
-    name2 = 'state changed two';
-    print('build Name tow');
     notifyListeners();
   }
 }
